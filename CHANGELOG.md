@@ -2,7 +2,7 @@
 
 Todas las modificaciones notables de esta extensión se documentarán en este archivo.    
 
-## [1.1.0] - 2024-01-20
+## [1.1.0] - 11-23-2025
 
 ### Added
 - **Soporte para win64**: Ahora puedes compilar para arquitectura de 64 bits
@@ -29,4 +29,5 @@ Todas las modificaciones notables de esta extensión se documentarán en este ar
 - Enlace con GCC para generar ejecutables
 - Ejecución directa del programa compilado
 - Manejo de rutas con espacios y caracteres especiales
+
 - Compatibilidad con PowerShell en Windows
