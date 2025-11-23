@@ -24,6 +24,11 @@ function activate(context) {
             return;
         }
 
+        // Obtener configuración del usuario
+        const config = vscode.workspace.getConfiguration('nasmRunner');
+        const architecture = config.get('architecture') || 'win32';
+        const keepObjFiles = config.get('keepObjFiles') || false;
+
         // Obtener directorio y nombre del archivo sin extensión
         const dir = path.dirname(filePath);
         const fileNameWithoutExt = path.basename(filePath, fileExtension);
@@ -35,12 +40,21 @@ function activate(context) {
         
         nasmTerminal.show();
 
-        // Comandos limpios - se agregan a la terminal existente
+        // Comandos según configuración
         nasmTerminal.sendText(`cd "${dir}"`);
-        nasmTerminal.sendText(`nasm -f win32 "${path.basename(filePath)}" -o "${fileNameWithoutExt}.obj"`);
+        nasmTerminal.sendText(`nasm -f ${architecture} "${path.basename(filePath)}" -o "${fileNameWithoutExt}.obj"`);
         nasmTerminal.sendText(`gcc "${fileNameWithoutExt}.obj" -o "${fileNameWithoutExt}.exe"`);
         nasmTerminal.sendText(`.\\"${fileNameWithoutExt}.exe"`);
-        nasmTerminal.sendText(`del "${fileNameWithoutExt}.obj"`);
+        
+        // Solo eliminar .obj si el usuario no quiere conservarlos
+        if (!keepObjFiles) {
+            nasmTerminal.sendText(`del "${fileNameWithoutExt}.obj"`);
+        }
+
+        // Mostrar información de la configuración usada
+        const archText = architecture === 'win64' ? '64 bits' : '32 bits';
+        const keepText = keepObjFiles ? 'SÍ' : 'NO';
+        vscode.window.showInformationMessage(`NASM: Arquitectura ${archText} | Conservar .obj: ${keepText}`);
     });
 
     context.subscriptions.push(disposable);

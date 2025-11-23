@@ -2,7 +2,7 @@
     "name": "nasm-runner",
     "displayName": "NASM Runner para Windows",
     "description": "Compila y ejecuta archivos NASM directamente desde VSCode en Windows",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "publisher": "Hanielcruz",
     "engines": {
         "vscode": "^1.60.0"
@@ -28,6 +28,22 @@
                 "group": "navigation",
                 "when": "resourceExtname in ['.asm', '.nasm', '.s', '.txt']"
             }]
+        },
+        "configuration": {
+            "title": "NASM Runner",
+            "properties": {
+                "nasmRunner.architecture": {
+                    "type": "string",
+                    "default": "win32",
+                    "enum": ["win32", "win64"],
+                    "description": "Arquitectura objetivo para la compilación"
+                },
+                "nasmRunner.keepObjFiles": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Conservar archivos .obj después de ejecutar"
+                }
+            }
         }
     },
     "repository": {
