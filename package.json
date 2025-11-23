@@ -1,0 +1,40 @@
+{
+    "name": "nasm-runner",
+    "displayName": "NASM Runner para Windows",
+    "description": "Compila y ejecuta archivos NASM directamente desde VSCode en Windows",
+    "version": "1.0.0",
+    "publisher": "Hanielcruz",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": ["Other"],
+    "keywords": ["nasm", "assembly", "compile", "run", "windows", "compilador", "ensamblador", "ejecutar"],
+    "icon": "icon.png",
+    "activationEvents": ["onCommand:nasm-runner.runFile"],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [{
+            "command": "nasm-runner.runFile",
+            "title": "Compilar y Ejecutar NASM"
+        }],
+        "menus": {
+            "explorer/context": [{
+                "command": "nasm-runner.runFile",
+                "group": "navigation",
+                "when": "resourceExtname in ['.asm', '.nasm', '.s', '.txt']"
+            }],
+            "editor/context": [{
+                "command": "nasm-runner.runFile", 
+                "group": "navigation",
+                "when": "resourceExtname in ['.asm', '.nasm', '.s', '.txt']"
+            }]
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Cqrbono14/nasm-runner"
+    },
+    "scripts": {
+        "vscode:prepublish": "echo 'Prepublish completed'"
+    }
+}
